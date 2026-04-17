@@ -1,0 +1,75 @@
+name: Check for Opera GX updates
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for new Opera GX version
+        id: check
+        run: |
+          API_RESPONSE=$(curl -sf https://autoupdate.opera.com/api/latest)
+          NEW_VERSION=$(echo "$API_RESPONSE" | jq -r '."Opera GX".Linux[] | select(.arch == "x86_64") | .version')
+          NEW_CHECKSUM=$(echo "$API_RESPONSE" | jq -r '."Opera GX".Linux[] | select(.arch == "x86_64") | .checksum')
+
+          CURRENT_URL=$(grep 'dest-filename: opera-gx.deb' -A 3 com.opera.opera-gx.yaml | grep 'url:' | head -1)
+          CURRENT_VERSION=$(echo "$CURRENT_URL" | grep -oP 'opera-gx-stable_\K[0-9.]+(?=_amd64)')
+
+          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "latest=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "checksum=$NEW_CHECKSUM" >> $GITHUB_OUTPUT
+
+          if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then
+            echo "update=false" >> $GITHUB_OUTPUT
+          else
+            HIGHER=$(printf '%s\n%s' "$CURRENT_VERSION" "$NEW_VERSION" | sort -V | tail -1)
+            if [ "$HIGHER" = "$NEW_VERSION" ]; then
+              echo "update=true" >> $GITHUB_OUTPUT
+            else
+              echo "update=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Create update PR
+        if: steps.check.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_VERSION="${{ steps.check.outputs.latest }}"
+          NEW_CHECKSUM="${{ steps.check.outputs.checksum }}"
+          CURRENT_VERSION="${{ steps.check.outputs.current }}"
+          BRANCH="update_to_${NEW_VERSION}"
+
+          # Skip if branch already exists
+          if git ls-remote --heads origin "$BRANCH" | grep -q .; then
+            echo "Branch $BRANCH already exists, skipping"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+
+          # Replace version in URL (appears twice: path + filename)
+          sed -i "s|${CURRENT_VERSION}|${NEW_VERSION}|g" com.opera.opera-gx.yaml
+          # Replace sha256
+          CURRENT_CHECKSUM=$(grep -oP 'sha256: \K[a-f0-9]{64}' com.opera.opera-gx.yaml | head -1)
+          sed -i "s|sha256: ${CURRENT_CHECKSUM}|sha256: ${NEW_CHECKSUM}|" com.opera.opera-gx.yaml
+
+          git add com.opera.opera-gx.yaml
+          git commit -m "Update package to ${NEW_VERSION}"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "Update Opera GX to ${NEW_VERSION}" \
+            --body "Automated update of Opera GX from ${CURRENT_VERSION} to ${NEW_VERSION}." \
+            --base master
