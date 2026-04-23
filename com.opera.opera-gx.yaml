@@ -53,7 +53,7 @@ modules:
     sources:
       - type: archive
         url: https://download.gnome.org/sources/dconf/0.49/dconf-0.49.0.tar.xz
-        sha256: 6d609a4959ad49539a24a37c8e7b5b329dcbca5e102ff6878b894b55db23ef74
+        sha256: 16a47e49a58156dbb96578e1708325299e4c19eea9be128d5bd12fd0963d6c36
         x-checker-data:
           type: gnome
           name: dconf
@@ -92,7 +92,7 @@ modules:
         only-arches:
           - x86_64
         url: https://get.opera.com/pub/opera_gx/130.0.5847.89/linux/opera-gx-stable_130.0.5847.89_amd64.deb
-        sha256: 0429979a505afff50f5d738b66ba9bc57247ef0190105a7fd425685960cf7415
+        sha256: 6d609a4959ad49539a24a37c8e7b5b329dcbca5e102ff6878b894b55db23ef74
         x-checker-data:
           is-main-source: true
           type: anitya
