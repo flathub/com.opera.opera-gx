@@ -62,8 +62,7 @@ jobs:
           # Replace version in URL (appears twice: path + filename)
           sed -i "s|${CURRENT_VERSION}|${NEW_VERSION}|g" com.opera.opera-gx.yaml
           # Replace sha256
-          CURRENT_CHECKSUM=$(grep -oP 'sha256: \K[a-f0-9]{64}' com.opera.opera-gx.yaml | head -1)
-          sed -i "s|sha256: ${CURRENT_CHECKSUM}|sha256: ${NEW_CHECKSUM}|" com.opera.opera-gx.yaml
+          yq -i '(.modules[] | select(.name == "opera-gx") | .sources[] | select(."dest-filename" == "opera-gx.deb") | .sha256) = "'"${NEW_CHECKSUM}"'"' com.opera.opera-gx.yaml
 
           git add com.opera.opera-gx.yaml
           git commit -m "Update package to ${NEW_VERSION}"
