@@ -35,7 +35,6 @@ finish-args:
   - --persist=.pki
   # For KDE proxy resolution (KDE5 only)
   - --filesystem=~/.config/kioslaverc
-
 modules:
   - name: dconf
     buildsystem: meson
@@ -61,7 +60,6 @@ modules:
       # From: https://src.fedoraproject.org/rpms/dconf
       - type: patch
         path: dconf-override.patch
-
   - name: zypak
     sources:
       - type: git
@@ -71,7 +69,6 @@ modules:
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
-
   - name: opera-gx
     buildsystem: simple
     build-commands:
@@ -91,8 +88,8 @@ modules:
         dest-filename: opera-gx.deb
         only-arches:
           - x86_64
-        url: https://get.opera.com/pub/opera_gx/130.0.5847.89/linux/opera-gx-stable_130.0.5847.89_amd64.deb
-        sha256: 6d609a4959ad49539a24a37c8e7b5b329dcbca5e102ff6878b894b55db23ef74
+        url: https://get.opera.com/pub/opera_gx/130.0.5847.108/linux/opera-gx-stable_130.0.5847.108_amd64.deb
+        sha256: 3435c3797c72df94dbb485c19257e9afb2cc9c5bf94200eeed5ae8309b221fac
         x-checker-data:
           is-main-source: true
           type: anitya
@@ -103,7 +100,6 @@ modules:
         path: cobalt.ini
       - type: file
         path: opera.sh
-
   - name: opera-codecs
     buildsystem: simple
     build-commands:
