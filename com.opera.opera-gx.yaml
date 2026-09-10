@@ -88,8 +88,8 @@ modules:
         dest-filename: opera-gx.deb
         only-arches:
           - x86_64
-        url: https://get.opera.com/pub/opera_gx/135.0.5973.57/linux/opera-gx-stable_135.0.5973.57_amd64.deb
-        sha256: 3966a2238f60101489f7980927c62f324aa922b100871bfea26a2452ec611474
+        url: https://get.opera.com/pub/opera_gx/135.0.5973.126/linux/opera-gx-stable_135.0.5973.126_amd64.deb
+        sha256: 12bd28574dfc2892beead9b5eb41d95113b5792f4d79678e2c4893fe7d262053
         x-checker-data:
           is-main-source: true
           type: anitya
