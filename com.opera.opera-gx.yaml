@@ -88,15 +88,14 @@ modules:
         dest-filename: opera-gx.deb
         only-arches:
           - x86_64
-        url: https://get.opera.com/pub/opera_gx/138.0.6044.65/linux/opera-gx-stable_138.0.6044.65_amd64.deb
-        sha256: a4f53d7bef9c881ba4a3842186d0e54db9e5e780a670a6bc50f1642b0ce17fe1
+        url: https://get.opera.com/pub/opera_gx/139.0.6053.63/linux/opera-gx-stable_139.0.6053.63_amd64.deb
+        sha256: d25a1504d25bc6346d88585359f93b4c1520965f12d76cb850c9340e8d0bb177
         x-checker-data:
           is-main-source: true
           type: anitya
           project-id: 7242
           stable-only: true
-          url-template: 
-            https://get.geo.opera.com/pub/opera/desktop/$version/linux/opera-gx-stable_${version}_amd64.deb
+          url-template: https://get.geo.opera.com/pub/opera/desktop/$version/linux/opera-gx-stable_${version}_amd64.deb
       - type: file
         path: cobalt.ini
       - type: file
@@ -108,8 +107,7 @@ modules:
       - install -Dm 644 -t /app/opera-gx/lib_extra libffmpeg.so
     sources:
       - type: archive
-        url: 
-          https://github.com/Ld-Hagen/nwjs-ffmpeg-prebuilt/releases/download/nwjs-ffmpeg-0.119.2/0.119.2-linux-x64.zip
+        url: https://github.com/Ld-Hagen/nwjs-ffmpeg-prebuilt/releases/download/nwjs-ffmpeg-0.119.2/0.119.2-linux-x64.zip
         sha256: 5a2fdc493dbaff1925d8c4d1e960a47a7f3082a26bb77c4c10927f70de090dc0
         x-checker-data:
           type: json
