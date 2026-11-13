@@ -109,8 +109,8 @@ modules:
     sources:
       - type: archive
         url: 
-          https://github.com/Ld-Hagen/nwjs-ffmpeg-prebuilt/releases/download/nwjs-ffmpeg-0.119.2/0.119.2-linux-x64.zip
-        sha256: 5a2fdc493dbaff1925d8c4d1e960a47a7f3082a26bb77c4c10927f70de090dc0
+          https://github.com/Ld-Hagen/nwjs-ffmpeg-prebuilt/releases/download/nwjs-ffmpeg-0.120.0/0.120.0-linux-x64.zip
+        sha256: a3779312367b67ce87f5192be16bdd837f7f4a7df4e6894fd7200bf750cbbd45
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Ld-Hagen/nwjs-ffmpeg-prebuilt/releases/latest
