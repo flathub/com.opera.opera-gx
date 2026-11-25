@@ -93,10 +93,9 @@ modules:
         x-checker-data:
           is-main-source: true
           type: anitya
-          project-id: 7242
+          project-id: 393212
           stable-only: true
-          url-template: 
-            https://get.geo.opera.com/pub/opera/desktop/$version/linux/opera-gx-stable_${version}_amd64.deb
+          url-template: https://get.opera.com/pub/opera_gx/$version/linux/opera-gx-stable_${version}_amd64.deb
       - type: file
         path: cobalt.ini
       - type: file
