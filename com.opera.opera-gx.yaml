@@ -88,15 +88,14 @@ modules:
         dest-filename: opera-gx.deb
         only-arches:
           - x86_64
-        url: https://get.opera.com/pub/opera_gx/138.0.6044.65/linux/opera-gx-stable_138.0.6044.65_amd64.deb
-        sha256: a4f53d7bef9c881ba4a3842186d0e54db9e5e780a670a6bc50f1642b0ce17fe1
+        url: https://get.opera.com/pub/opera_gx/140.0.6074.48/linux/opera-gx-stable_140.0.6074.48_amd64.deb
+        sha256: 4ddc7a22ca95537193f3e288c50fc6c34fa4bace54f4e64d2df671f332bacf1b
         x-checker-data:
           is-main-source: true
           type: anitya
           project-id: 7242
           stable-only: true
-          url-template: 
-            https://get.geo.opera.com/pub/opera/desktop/$version/linux/opera-gx-stable_${version}_amd64.deb
+          url-template: https://get.geo.opera.com/pub/opera/desktop/$version/linux/opera-gx-stable_${version}_amd64.deb
       - type: file
         path: cobalt.ini
       - type: file
